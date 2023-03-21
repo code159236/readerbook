@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:padding="@dimen/dp_5"
+            android:text="用户协议与隐私政策"
+            android:textColor="#282828"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <!--        <ScrollView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="300dp"-->
+        <!--            android:paddingTop="@dimen/dp_20"-->
+        <!--            android:paddingBottom="@dimen/dp_20">-->
+
+        <TextView
+            android:text="感谢您信任并使用本软件!我们将依据"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_12"
+            android:lineSpacingMultiplier="1.5"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tv_xieyi"
+                android:text="《用户协议》"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_12"
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/md_blue_500"
+                android:textSize="12sp"
+                android:focusable="true" />
+            <TextView
+                android:id="@+id/tv_yinsi"
+                android:text="《隐私政策》"
+                android:clickable="true"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/dp_12"
+                android:lineSpacingMultiplier="1.5"
+                android:textColor="@color/md_blue_500"
+                android:textSize="12sp"
+                android:focusable="true" />
+
+        </LinearLayout>
+
+          <TextView
+            android:text="来帮助您了解我们在收集、使用、存储您个人信息的情况以及您享有的相关权利。\n　　我们会采用行业内领先的安全技术来保护您的个人信息。您可通过阅读完整的用户协议和隐私政策来了解详细信息。\n　　您需要同意用户协议和隐私政策后才能使用。"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginRight="15dp"
+            android:lineSpacingMultiplier="1.5"
+            android:textColor="#000000"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_below"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="@dimen/dp_12"
+            android:layout_marginRight="15dp"
+            android:lineSpacingMultiplier="1.5"
+            android:textColor="#666666"
+            android:textSize="12sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingStart="@dimen/dp_12"
+            android:paddingEnd="@dimen/dp_12"
+            android:paddingBottom="@dimen/dp_16"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_cancel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="@dimen/dp_12"
+                android:text="不同意并退出"
+                android:textSize="@dimen/dp_12"
+                android:textColor="#666666"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_agree"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/corner_blue"
+                android:gravity="center"
+                android:padding="@dimen/dp_12"
+                android:text="同意并继续"
+                android:textSize="16sp"
+                android:textColor="#ffffff"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </LinearLayout>
+</FrameLayout>

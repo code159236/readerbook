@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "344166502319",
+    "project_id": "v2reading",
+    "storage_bucket": "v2reading.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:344166502319:android:ae1a0df01f230c4028295a",
+        "android_client_info": {
+          "package_name": "com.v2reading.reader"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "344166502319-d97ea3bc85rmjf3oom70vt3me00ub7ss.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCABxq3J2hTE9BzwOntT5cNwrY5L8EEVP8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "344166502319-d97ea3bc85rmjf3oom70vt3me00ub7ss.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

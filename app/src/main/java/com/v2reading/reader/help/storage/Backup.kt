@@ -1,0 +1,172 @@
+package com.v2reading.reader.help.storage
+
+import android.content.Context
+import android.net.Uri
+import androidx.documentfile.provider.DocumentFile
+import com.v2reading.reader.constant.AppLog
+import com.v2reading.reader.constant.PreferKey
+import com.v2reading.reader.data.appDb
+import com.v2reading.reader.help.AppWebDav
+import com.v2reading.reader.help.config.LocalConfig
+import com.v2reading.reader.help.config.ReadBookConfig
+import com.v2reading.reader.help.config.ThemeConfig
+import com.v2reading.reader.help.coroutine.Coroutine
+import com.v2reading.reader.utils.*
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.withContext
+import splitties.init.appCtx
+import java.io.File
+import java.io.FileOutputStream
+import java.util.concurrent.TimeUnit
+
+
+object Backup {
+
+    val backupPath: String by lazy {
+        appCtx.filesDir.getFile("backup").absolutePath
+    }
+
+    val backupFileNames by lazy {
+        arrayOf(
+            "bookshelf.json",
+            "bookmark.json",
+            "bookGroup.json",
+            "bookSource.json",
+            "rssSources.json",
+            "rssStar.json",
+            "replaceRule.json",
+            "readRecord.json",
+            "searchHistory.json",
+            "sourceSub.json",
+            "txtTocRule.json",
+            "httpTTS.json",
+            "keyboardAssists.json",
+            ReadBookConfig.configFileName,
+            ReadBookConfig.shareConfigFileName,
+            ThemeConfig.configFileName,
+            "config.xml"
+        )
+    }
+
+    fun autoBack(context: Context) {
+        val lastBackup = LocalConfig.lastBackup
+        if (lastBackup + TimeUnit.DAYS.toMillis(1) < System.currentTimeMillis()) {
+            Coroutine.async {
+                if (!AppWebDav.hasBackUp()) {
+                    backup(context, context.getPrefString(PreferKey.backupPath), true)
+                } else {
+                    LocalConfig.lastBackup = System.currentTimeMillis()
+                }
+            }.onError {
+                AppLog.put("自动备份失败\n${it.localizedMessage}")
+            }
+        }
+    }
+
+    suspend fun backup(context: Context, path: String?, isAuto: Boolean = false) {
+        LocalConfig.lastBackup = System.currentTimeMillis()
+        withContext(IO) {
+            FileUtils.delete(backupPath)
+            writeListToJson(appDb.bookDao.all, "bookshelf.json", backupPath)
+            writeListToJson(appDb.bookmarkDao.all, "bookmark.json", backupPath)
+            writeListToJson(appDb.bookGroupDao.all, "bookGroup.json", backupPath)
+            writeListToJson(appDb.bookSourceDao.all, "bookSource.json", backupPath)
+            writeListToJson(appDb.rssSourceDao.all, "rssSources.json", backupPath)
+            writeListToJson(appDb.rssStarDao.all, "rssStar.json", backupPath)
+            writeListToJson(appDb.replaceRuleDao.all, "replaceRule.json", backupPath)
+            writeListToJson(appDb.readRecordDao.all, "readRecord.json", backupPath)
+            writeListToJson(appDb.searchKeywordDao.all, "searchHistory.json", backupPath)
+            writeListToJson(appDb.ruleSubDao.all, "sourceSub.json", backupPath)
+            writeListToJson(appDb.txtTocRuleDao.all, "txtTocRule.json", backupPath)
+            writeListToJson(appDb.httpTTSDao.all, "httpTTS.json", backupPath)
+            writeListToJson(appDb.keyboardAssistsDao.all, "keyboardAssists.json", backupPath)
+            GSON.toJson(ReadBookConfig.configList).let {
+                FileUtils.createFileIfNotExist(backupPath + File.separator + ReadBookConfig.configFileName)
+                    .writeText(it)
+            }
+            GSON.toJson(ReadBookConfig.shareConfig).let {
+                FileUtils.createFileIfNotExist(backupPath + File.separator + ReadBookConfig.shareConfigFileName)
+                    .writeText(it)
+            }
+            GSON.toJson(ThemeConfig.configList).let {
+                FileUtils.createFileIfNotExist(backupPath + File.separator + ThemeConfig.configFileName)
+                    .writeText(it)
+            }
+            Preferences.getSharedPreferences(appCtx, backupPath, "config")?.let { sp ->
+                val edit = sp.edit()
+                appCtx.defaultSharedPreferences.all.forEach { (key, value) ->
+                    if (BackupConfig.keyIsNotIgnore(key)) {
+                        when (value) {
+                            is Int -> edit.putInt(key, value)
+                            is Boolean -> edit.putBoolean(key, value)
+                            is Long -> edit.putLong(key, value)
+                            is Float -> edit.putFloat(key, value)
+                            is String -> edit.putString(key, value)
+                        }
+                    }
+                }
+                edit.commit()
+            }
+            when {
+                path.isNullOrBlank() -> {
+                    copyBackup(context.getExternalFilesDir(null)!!, false)
+                }
+                path.isContentScheme() -> {
+                    copyBackup(context, Uri.parse(path), isAuto)
+                }
+                else -> {
+                    copyBackup(File(path), isAuto)
+                }
+            }
+            AppWebDav.backUpWebDav(backupPath)
+        }
+    }
+
+    private fun writeListToJson(list: List<Any>, fileName: String, path: String) {
+        if (list.isNotEmpty()) {
+            val file = FileUtils.createFileIfNotExist(path + File.separator + fileName)
+            FileOutputStream(file).use {
+                GSON.writeToOutputStream(it, list)
+            }
+        }
+    }
+
+    @Throws(Exception::class)
+    private fun copyBackup(context: Context, uri: Uri, isAuto: Boolean) {
+        DocumentFile.fromTreeUri(context, uri)?.let { treeDoc ->
+            for (fileName in backupFileNames) {
+                val file = File(backupPath + File.separator + fileName)
+                if (file.exists()) {
+                    if (isAuto) {
+                        treeDoc.findFile("auto")?.findFile(fileName)?.delete()
+                        DocumentUtils.createFileIfNotExist(
+                            treeDoc,
+                            fileName,
+                            subDirs = arrayOf("auto")
+                        )?.writeBytes(context, file.readBytes())
+                    } else {
+                        treeDoc.findFile(fileName)?.delete()
+                        treeDoc.createFile("", fileName)
+                            ?.writeBytes(context, file.readBytes())
+                    }
+                }
+            }
+        }
+    }
+
+    @Throws(Exception::class)
+    private fun copyBackup(rootFile: File, isAuto: Boolean) {
+        for (fileName in backupFileNames) {
+            val file = File(backupPath + File.separator + fileName)
+            if (file.exists()) {
+                file.copyTo(
+                    if (isAuto) {
+                        FileUtils.createFileIfNotExist(rootFile, "auto", fileName)
+                    } else {
+                        FileUtils.createFileIfNotExist(rootFile, fileName)
+                    }, true
+                )
+            }
+        }
+    }
+}

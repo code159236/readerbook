@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:divider="@color/transparent"
+    app:allowDividerAbove="false"
+    app:allowDividerBelow="false">
+
+    <com.v2reading.reader.lib.prefs.Preference
+        android:icon="@drawable/ic_cfg_source"
+        android:key="bookSourceManage"
+        android:summary="@string/book_source_manage_desc"
+        android:title="@string/book_source_manage"
+        app:iconSpaceReserved="false"
+        app:isPreferenceVisible="false" />
+
+    <com.v2reading.reader.lib.prefs.Preference
+        android:icon="@drawable/ic_cfg_replace"
+        android:key="replaceManage"
+        android:summary="@string/replace_purify_desc"
+        android:title="@string/replace_purify"
+        app:iconSpaceReserved="false"
+        app:isPreferenceVisible="false" />
+
+<!--    <com.v2reading.reader.lib.prefs.Preference-->
+<!--        android:key="treasure_center"-->
+<!--        android:summary="快来获取您的金币吧"-->
+<!--        android:title="福利中心"-->
+<!--        app:iconSpaceReserved="false" />-->
+
+<!--    <com.v2reading.reader.lib.prefs.Preference-->
+<!--        android:key="coin_shop"-->
+<!--        android:summary="商城可以兑换免广告阅读时间"-->
+<!--        android:title="金币商城"-->
+<!--        app:iconSpaceReserved="false" />-->
+
+    <com.v2reading.reader.lib.prefs.NameListPreference
+        android:defaultValue="0"
+        android:entries="@array/theme_mode"
+        android:entryValues="@array/theme_mode_v"
+        android:key="themeMode"
+        android:summary="@string/theme_mode_desc"
+        android:title="@string/theme_mode"
+        app:iconSpaceReserved="false" />
+
+    <com.v2reading.reader.lib.prefs.SwitchPreference
+        android:defaultValue="false"
+        android:icon="@drawable/ic_cfg_web"
+        android:key="webService"
+        android:summary="@string/web_service_desc"
+        android:title="@string/web_service"
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false"
+        app:isPreferenceVisible="false" />
+
+    <com.v2reading.reader.lib.prefs.PreferenceCategory
+        android:title="@string/setting"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false">
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="web_dav_setting"
+            android:summary="@string/web_dav_set_import_old"
+            android:title="@string/backup_restore"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="theme_setting"
+            android:summary="@string/theme_setting_s"
+            android:title="@string/theme_setting"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="setting"
+            android:summary="@string/other_setting_s"
+            android:title="@string/other_setting"
+            app:allowDividerBelow="false"
+            app:iconSpaceReserved="false" />
+
+    </com.v2reading.reader.lib.prefs.PreferenceCategory>
+
+    <com.v2reading.reader.lib.prefs.PreferenceCategory
+        android:title="反馈"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false">
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="qq"
+            android:summary="群号:933390835 功能建议、意见反馈等"
+            android:title="QQ交流群"
+            app:iconSpaceReserved="false" />
+
+    </com.v2reading.reader.lib.prefs.PreferenceCategory>
+
+    <com.v2reading.reader.lib.prefs.PreferenceCategory
+        android:key="aboutCategory"
+        android:title="@string/other"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/view_preference_category">
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="bookmark"
+            android:summary="@string/all_bookmark"
+            android:title="@string/bookmark"
+            app:iconSpaceReserved="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="readRecord"
+            android:summary="@string/read_record_summary"
+            android:title="@string/read_record"
+            app:iconSpaceReserved="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="donate"
+            android:summary="@string/donate_summary"
+            android:title="@string/donate"
+            app:iconSpaceReserved="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="about"
+            android:summary="@string/about_summary"
+            android:title="@string/about"
+            app:iconSpaceReserved="false"
+            app:isPreferenceVisible="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="update"
+            android:title="@string/check_app_update"
+            app:iconSpaceReserved="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="web"
+            android:title="网站"
+            app:iconSpaceReserved="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="review"
+            android:title="评分"
+            android:summary="如果您对我们的服务满意,请给我们一个好评哟"
+            app:iconSpaceReserved="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="xieyi"
+            android:title="用户协议"
+            app:iconSpaceReserved="false" />
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="yinsi"
+            android:title="隐私政策"
+            app:iconSpaceReserved="false" />
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="share"
+            android:title="@string/share_common"
+            app:iconSpaceReserved="false" />
+
+    </com.v2reading.reader.lib.prefs.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

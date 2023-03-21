@@ -1,0 +1,343 @@
+plugins {
+    id "com.android.application"
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-parcelize'
+    id 'kotlin-kapt'
+    id "de.timfreiheit.resourceplaceholders"
+}
+apply from: 'download.gradle'
+apply plugin: 'com.huawei.agconnect'
+//apply plugin: 'privacy-sentry-plugin'
+
+def localProperties = new Properties()
+try {
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+} catch (Exception e) {
+    logger.warn("No Local Properties File Found!")
+}
+
+
+static def releaseTime() {
+    return new Date().format("yy.MMddHH", TimeZone.getTimeZone("GMT+8"))
+}
+
+def name = "v2reading"
+def version = "1." + releaseTime()
+def gitCommits = Integer.parseInt('git rev-list HEAD --count'.execute().text.trim())
+
+android {
+    compileSdkVersion 32
+    buildToolsVersion "32.0.0"
+    namespace 'com.v2reading.reader'
+    kotlinOptions {
+        jvmTarget = "11"
+    }
+
+    signingConfigs {
+//        if (project.hasProperty("RELEASE_STORE_FILE")) {
+//            myConfig {
+//                storeFile file(RELEASE_STORE_FILE)
+//                storePassword RELEASE_STORE_PASSWORD
+//                keyAlias RELEASE_KEY_ALIAS
+//                keyPassword RELEASE_KEY_PASSWORD
+//                v1SigningEnabled true
+//                v2SigningEnabled trueÏ
+//                enableV3Signing = true
+//                enableV4Signing = true
+//            }
+//        }
+        debug {
+            storeFile file("./crosserr.jks")
+            storePassword 'crosserr'
+            keyAlias 'crosserr'
+            keyPassword 'crosserr'
+        }
+    }
+    defaultConfig {
+        applicationId "com.v2reading.reader"
+        minSdkVersion 21
+        targetSdkVersion 32
+        versionCode 10016
+        versionName "1.0.16"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        project.ext.set("archivesBaseName", name + "_" + version)
+        multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true",
+                        "room.schemaLocation"  : "$projectDir/schemas".toString()
+                ]
+            }
+        }
+        buildConfigField("String", "gitee1", "\"" + localProperties['gitee1'] + "\"")
+        buildConfigField("String", "gitee2", "\"" + localProperties['gitee2'] + "\"")
+        buildConfigField("String", "fastgit", "\"" + localProperties['fastgit'] + "\"")
+        buildConfigField("String", "sta", "\"" + localProperties['sta'] + "\"")
+        buildConfigField("String", "jsdelivr", "\"" + localProperties['jsdelivr'] + "\"")
+        buildConfigField("String", "gcore", "\"" + localProperties['gcore'] + "\"")
+        buildConfigField("String", "fastly", "\"" + localProperties['fastly'] + "\"")
+        buildConfigField("String", "ghproxy", "\"" + localProperties['ghproxy'] + "\"")
+        buildConfigField("String", "ghproxynet", "\"" + localProperties['ghproxynet'] + "\"")
+        buildConfigField("String", "ghapi", "\"" + localProperties['ghapi'] + "\"")
+        buildConfigField("String", "gitcdn", "\"" + localProperties['gitcdn'] + "\"")
+        buildConfigField("String", "github", "\"" + localProperties['github'] + "\"")
+    }
+    buildFeatures {
+        viewBinding true
+        compose true
+    }
+    buildTypes {
+        release {
+            buildConfigField "String", "Cronet_Version", "\"$CronetVersion\""
+//            applicationIdSuffix '.release'
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField "String", "Cronet_Version", "\"$CronetVersion\""
+
+            signingConfig signingConfigs.debug
+
+//            applicationIdSuffix '.debug'
+//            versionNameSuffix 'debug'
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        android.applicationVariants.all { variant ->
+            variant.outputs.all {
+                def flavor = variant.productFlavors[0].name
+                outputFileName = "${name}_${flavor}_${defaultConfig.versionName}.apk"
+            }
+        }
+    }
+    flavorDimensions "mode"
+    productFlavors {
+        app {
+            dimension "mode"
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "app"]
+        }
+        google {
+            dimension "mode"
+//            applicationId "io.legado.play"
+            manifestPlaceholders = [APP_CHANNEL_VALUE: "google"]
+        }
+    }
+    compileOptions {
+        // Flag to enable support for the new language APIs
+        coreLibraryDesugaringEnabled true
+        // Sets Java compatibility to Java 11
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion "$compose_compiler_version"
+    }
+
+    sourceSets {
+        // Adds exported schema location as test app assets.
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+    lint {
+        checkDependencies true
+    }
+    tasks.withType(JavaCompile) {
+        //options.compilerArgs << "-Xlint:unchecked"
+    }
+}
+
+resourcePlaceholders {
+    files = ['xml/shortcuts.xml']
+}
+
+kapt {
+    arguments {
+        arg("room.schemaLocation", "$projectDir/schemas")
+    }
+}
+
+
+//configurations.all {
+//    exclude group:"com.github.bayescom.EasyAds-Android", module: "easybd"
+//    exclude group:"com.github.bayescom.EasyAds-Android", module: "easyks"
+//    exclude group:"com.github.bayescom.EasyAds-Android", module: "easycsj"
+//}
+
+dependencies {
+    coreLibraryDesugaring('com.android.tools:desugar_jdk_libs:1.1.6')
+    testImplementation('junit:junit:4.13.2')
+    androidTestImplementation('androidx.test:runner:1.4.0')
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.4.0')
+    implementation('androidx.multidex:multidex:2.0.1')
+    //kotlin
+    //noinspection GradleDependency
+    //noinspection DifferentStdlibGradleVersion
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+    //Kotlin反射
+    //noinspection GradleDependency
+    implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlin_version")
+    //协程
+    def coroutines_version = '1.6.3-native-mt'
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version")
+
+    //图像处理库Toolkit
+    implementation('com.github.android:renderscript-intrinsics-replacement-toolkit:b6363490c3')
+
+    //androidX
+    implementation('androidx.core:core-ktx:1.8.0')
+//    implementation('androidx.appcompat:appcompat:1.4.2')
+    implementation('androidx.activity:activity-ktx:1.5.0')
+    implementation('androidx.fragment:fragment-ktx:1.5.0')
+    implementation('androidx.preference:preference-ktx:1.2.0')
+    implementation('androidx.constraintlayout:constraintlayout:2.1.4')
+    implementation('androidx.swiperefreshlayout:swiperefreshlayout:1.1.0')
+    implementation('androidx.viewpager2:viewpager2:1.0.0')
+    implementation('androidx.webkit:webkit:1.4.0')
+
+    //google
+    implementation('com.google.android.material:material:1.6.1')
+    implementation('com.google.android.flexbox:flexbox:3.0.0')
+    implementation('com.google.code.gson:gson:2.9.0')
+
+    //lifecycle
+    def lifecycle_version = '2.5.0'
+    implementation("androidx.lifecycle:lifecycle-common-java8:$lifecycle_version")
+
+    //compose
+    // Integration with activities
+    implementation 'androidx.activity:activity-compose:1.5.0'
+    // Compose Material Design
+    implementation "androidx.compose.material:material:$compose_version"
+    // Animations
+    implementation "androidx.compose.animation:animation:$compose_version"
+    // Tooling support (Previews, etc.)
+    implementation "androidx.compose.ui:ui-tooling:$compose_version"
+    // UI Tests
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+
+    //media
+    implementation("androidx.media:media:1.6.0")
+
+    implementation("com.google.android.exoplayer:exoplayer-core:$exoplayer_version")
+    implementation("com.google.android.exoplayer:extension-okhttp:$exoplayer_version")
+
+    //Splitties
+
+    implementation("com.louiscad.splitties:splitties-appctx:$splitties_version")
+    implementation("com.louiscad.splitties:splitties-systemservices:$splitties_version")
+    implementation("com.louiscad.splitties:splitties-views:$splitties_version")
+
+    //room
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    //ksp("androidx.room:room-compiler:$room_version")
+    testImplementation("androidx.room:room-testing:$room_version")
+
+    //liveEventBus
+    implementation('io.github.jeremyliao:live-event-bus-x:1.8.0')
+
+    //规则相关
+    implementation('org.jsoup:jsoup:1.15.2')
+    implementation('com.jayway.jsonpath:json-path:2.7.0')
+    implementation('cn.wanghaomiao:JsoupXpath:2.5.1')
+    implementation(project(path: ':epublib'))
+
+    //JS rhino
+    //implementation('com.github.gedoor:rhino-android:1.8')
+    implementation(fileTree(dir: 'lib', include: ['rhino-*.jar']))
+
+    //网络
+    implementation('com.squareup.okhttp3:okhttp:4.10.0')
+    implementation(fileTree(dir: 'cronetlib', include: ['*.jar', '*.aar']))
+
+    //Glide
+    def glideVersion = "4.13.2"
+    implementation("com.github.bumptech.glide:glide:$glideVersion")
+    kapt("com.github.bumptech.glide:compiler:$glideVersion")
+
+    //webServer
+    def nanoHttpdVersion = "2.3.1"
+    implementation("org.nanohttpd:nanohttpd:$nanoHttpdVersion")
+    implementation("org.nanohttpd:nanohttpd-websocket:$nanoHttpdVersion")
+
+    //颜色选择
+    implementation('com.jaredrummler:colorpicker:1.1.0')
+
+    //apache
+    implementation('org.apache.commons:commons-text:1.9')
+
+    //MarkDown
+//    def markwonVersion = "4.6.2"
+//    implementation("io.noties.markwon:core:$markwonVersion")
+//    implementation("io.noties.markwon:image-glide:$markwonVersion")
+//    implementation("io.noties.markwon:ext-tables:$markwonVersion")
+//    implementation("io.noties.markwon:html:$markwonVersion")
+
+    //转换繁体
+    implementation('com.github.liuyueyi.quick-chinese-transfer:quick-transfer-core:0.2.5')
+
+    //加解密类库,有些站点使用
+    //noinspection GradleDependency
+    implementation('cn.hutool:hutool-crypto:5.8.1')
+
+    implementation 'androidx.browser:browser:1.4.0'
+
+    implementation(project(path: ':updateapputils'))
+    implementation(project(path: ':tts'))
+
+    implementation 'com.github.zhpanvip:bannerviewpager:3.5.6'
+
+    implementation 'com.huawei.agconnect:agconnect-core:1.6.5.300'
+    implementation 'com.huawei.hms:hianalytics:6.3.0.302'
+
+//    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+//    implementation 'com.qq.e.union:union:+'
+
+    implementation('com.github.sujithkanna:smileyrating:2.0.0')
+
+    // TradPlus
+    //补充插件的引入，否则会集成失败
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.3.0-alpha02'
+    //TradPlus
+    implementation 'com.tradplusad:tradplus:9.3.10.1'
+    // CSJ
+    implementation 'com.tradplusad:tradplus-toutiao:17.9.3.10.1'
+    implementation 'com.pangle.cn:ads-sdk-pro:5.1.0.2'
+    // Tencent Ads
+    implementation 'com.tradplusad:tradplus-txadnet:16.9.3.10.1'
+    implementation 'com.qq.e.union:union:4.512.1382'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android:+'
+    // Cross Promotion
+    implementation 'com.tradplusad:tradplus-crosspromotion:27.9.3.10.1'
+    //国内需要同时引入
+    implementation 'com.tradplusad:tradplus-china_pluginx:9.3.10.1'
+    // Kuaishou
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+    implementation 'com.tradplusad:tradplus-kwad:20.9.3.10.1'
+    implementation 'com.tradplusad:ksad-ads:3.3.38'
+
+    // UnityAds
+    implementation 'com.tradplusad:tradplus-unity:5.9.2.10.1'
+    implementation 'com.unity3d.ads:unity-ads:4.5.0'
+    // Adx
+    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.tradplusad:tradplus-adx:40.9.2.10.1'
+}
+//privacy {
+//    blackList = []
+//    replaceFileName = "replace.json"
+//    // 开启hook反射
+//    hookReflex = true
+//    // debug编译默认开启，支持关闭，感谢run的pr
+//    debugEnable = true
+//    // 开启hook 替换类，目前支持file
+//    hookConstructor = true
+//    // 是否开启hook变量，默认为false
+//    hookField = true
+//}

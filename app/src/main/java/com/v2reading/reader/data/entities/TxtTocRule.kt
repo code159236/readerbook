@@ -1,0 +1,34 @@
+package com.v2reading.reader.data.entities
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.v2reading.reader.utils.GSON
+
+
+@Entity(tableName = "txtTocRules")
+data class TxtTocRule(
+    @PrimaryKey
+    var id: Long = System.currentTimeMillis(),
+    var name: String = "",
+    var rule: String = "",
+    var serialNumber: Int = -1,
+    var enable: Boolean = true
+) {
+
+    override fun hashCode(): Int {
+        return GSON.toJson(this).hashCode()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        other ?: return false
+        if (other is TxtTocRule) {
+            return id == other.id
+                    && name == other.name
+                    && rule == other.rule
+                    && serialNumber == other.serialNumber
+                    && enable == other.enable
+        }
+        return false
+    }
+
+}

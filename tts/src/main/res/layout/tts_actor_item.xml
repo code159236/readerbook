@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:gravity="center"
+    android:padding="12dp"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        tools:ignore="UseCompoundDrawables">
+
+        <ImageView
+            android:id="@+id/act_flags"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="TODO"
+            android:src="@drawable/female"
+            tools:ignore="ContentDescription,HardcodedText" />
+
+        <TextView
+            android:id="@+id/actor_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="晓晓"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            tools:ignore="HardcodedText" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/act_des"
+        android:gravity="center"
+        android:textSize="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="@string/tts_sample_zh" />
+
+
+</LinearLayout>

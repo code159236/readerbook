@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_mine_head"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:clipChildren="false"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_user_fragment_head"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:clipChildren="false"
+            android:gravity="center_vertical"
+            android:minHeight="@dimen/dp_72"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/user_fragment_profit_info"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:clipChildren="false"
+                android:orientation="horizontal"
+                android:paddingBottom="@dimen/dp_8">
+
+                <RelativeLayout
+                    android:id="@+id/rl_user_general_info_head_follow_layout"
+                    android:layout_width="@dimen/dp_0"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/user_fragment_coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:text="0"
+                        android:textColor="@color/md_amber_800"
+                        android:textSize="@dimen/sp_18" />
+
+                    <TextView
+                        android:id="@+id/tv_coin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/user_fragment_coin"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="我的金币"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                        android:textSize="@dimen/sp_12" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="1.0px"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_gravity="center"
+                    android:background="#24000000" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_user_general_info_head_coin_today_layout"
+                    android:layout_width="@dimen/dp_0"
+                    android:visibility="gone"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0">
+
+                    <TextView
+                        android:id="@+id/user_fragment_coin_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textColor="@color/md_amber_800"
+                        android:textSize="@dimen/sp_18" />
+
+                    <TextView
+                        android:id="@+id/tv_coin_today"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/user_fragment_coin_today"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="今日金币"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                        android:textSize="@dimen/sp_12" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="1.0px"
+                    android:layout_height="@dimen/dp_32"
+                    android:layout_gravity="center"
+                    android:background="#24000000" />
+
+                <RelativeLayout
+                    android:id="@+id/rl_user_general_info_head_read_time_layout"
+                    android:layout_width="@dimen/dp_0"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.0"
+                    android:gravity="center">
+
+                    <TextView
+                        android:id="@+id/today_read_duration"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text="0"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                        android:textSize="@dimen/sp_18" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/today_read_duration"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:text="今日阅读(分钟)"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Subtitle"
+                        android:textSize="@dimen/sp_12" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

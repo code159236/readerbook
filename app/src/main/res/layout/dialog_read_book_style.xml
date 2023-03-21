@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/background"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+
+        <ImageView
+            android:id="@+id/font_size_down"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:layout_weight="1"
+            android:background="@drawable/stroke_bg"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:src="@drawable/font_size_down" />
+
+        <TextView
+            android:id="@+id/font_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_12"
+            android:layout_marginEnd="@dimen/dp_12"
+            android:text="58"
+            android:textColor="@color/primaryText" />
+
+        <ImageView
+            android:id="@+id/font_size_up"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:layout_weight="1"
+            android:background="@drawable/stroke_bg"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:src="@drawable/font_size_up" />
+
+
+        <com.v2reading.reader.ui.book.read.config.TextFontWeightConverter
+            android:id="@+id/text_font_weight_converter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:isBottomBackground="true"
+            app:radius="@dimen/dp_3" />
+
+
+        <com.v2reading.reader.ui.widget.text.StrokeTextView
+            android:id="@+id/tv_text_font"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:layout_marginStart="@dimen/dp_12"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:text="@string/text_font"
+            android:textSize="14sp"
+            app:isBottomBackground="true"
+            app:radius="3dp" />
+
+
+        <com.v2reading.reader.ui.widget.text.StrokeTextView
+            android:id="@+id/tv_text_indent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:text="@string/text_indent"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:isBottomBackground="true"
+            app:radius="3dp" />
+
+
+        <com.v2reading.reader.ui.book.read.config.ChineseConverter
+            android:id="@+id/chinese_converter"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/dp_26"
+            android:layout_marginStart="@dimen/dp_12"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:textSize="14sp"
+            app:isBottomBackground="true"
+            app:radius="3dp" />
+
+
+        <com.v2reading.reader.ui.widget.text.StrokeTextView
+            android:id="@+id/tv_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:text="@string/padding"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:isBottomBackground="true"
+            app:radius="3dp" />
+
+
+        <com.v2reading.reader.ui.widget.text.StrokeTextView
+            android:id="@+id/tv_tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingLeft="6dp"
+            android:paddingTop="4dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="4dp"
+            android:text="@string/information"
+            android:textSize="14sp"
+            android:visibility="gone"
+            app:isBottomBackground="true"
+            app:radius="3dp" />
+
+
+    </LinearLayout>
+
+    <com.v2reading.reader.ui.widget.DetailSeekBar
+        android:id="@+id/dsb_text_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:visibility="gone"
+        app:isBottomBackground="true"
+        app:max="45"
+        app:title="@string/text_size" />
+
+    <com.v2reading.reader.ui.widget.DetailSeekBar
+        android:id="@+id/dsb_text_letter_spacing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:isBottomBackground="true"
+        app:max="100"
+        app:title="@string/text_letter_spacing" />
+
+    <com.v2reading.reader.ui.widget.DetailSeekBar
+        android:id="@+id/dsb_line_size"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:isBottomBackground="true"
+        app:max="20"
+        app:title="@string/line_size" />
+
+    <com.v2reading.reader.ui.widget.DetailSeekBar
+        android:id="@+id/dsb_paragraph_spacing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        app:isBottomBackground="true"
+        app:max="20"
+        app:title="@string/paragraph_size" />
+
+    <View
+        android:id="@+id/vw_bg_fg"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/btn_bg_press" />
+
+    <TextView
+        android:id="@+id/tv_page_anim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:paddingStart="6dp"
+        android:paddingTop="3dp"
+        android:paddingEnd="6dp"
+        android:paddingBottom="3dp"
+        android:text="@string/page_anim" />
+
+    <RadioGroup
+        android:id="@+id/rg_page_anim"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+
+        <com.v2reading.reader.lib.theme.view.ThemeRadioNoButton
+            android:id="@+id/rb_simulation_anim"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@string/page_anim_simulation"
+            app:isBottomBackground="true" />
+
+        <com.v2reading.reader.lib.theme.view.ThemeRadioNoButton
+            android:id="@+id/rb_anim0"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@string/page_anim_cover"
+            app:isBottomBackground="true" />
+
+        <com.v2reading.reader.lib.theme.view.ThemeRadioNoButton
+            android:id="@+id/rb_anim1"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@string/page_anim_slide"
+            app:isBottomBackground="true" />
+
+        <com.v2reading.reader.lib.theme.view.ThemeRadioNoButton
+            android:id="@+id/rb_scroll_anim"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@string/page_anim_scroll"
+            app:isBottomBackground="true" />
+
+        <com.v2reading.reader.lib.theme.view.ThemeRadioNoButton
+            android:id="@+id/rb_no_anim"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_30"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:text="@string/page_anim_none"
+            app:isBottomBackground="true" />
+
+    </RadioGroup>
+
+    <View
+        android:id="@+id/vw_bg_fg1"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/btn_bg_press" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_bg_ts"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:paddingStart="6dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="6dp"
+            android:paddingBottom="5dp"
+            android:text="@string/text_bg_style" />
+
+        <TextView
+            android:id="@+id/tv_share_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/share_layout" />
+
+        <com.v2reading.reader.ui.widget.checkbox.SmoothCheckBox
+            android:id="@+id/cb_share_layout"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp" />
+
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_12"
+        android:orientation="horizontal"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tool:listitem="@layout/item_read_style" />
+
+
+    <View
+        android:id="@+id/vw_bg_fg2"
+        android:layout_width="match_parent"
+        android:layout_height="0.8dp"
+        android:layout_marginTop="@dimen/dp_12"
+        android:background="@color/btn_bg_press" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_16">
+
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fabSearch"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="全文搜索"
+            android:textSize="12sp"
+            app:drawableTopCompat="@drawable/ic_search" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/fabAutoPage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="自动翻页"
+            android:textSize="12sp"
+            app:drawableTopCompat="@drawable/ic_play_outline_24dp" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/setting"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:text="高级设置"
+            android:textSize="12sp"
+            app:drawableTopCompat="@drawable/ic_settings" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawablePadding="@dimen/dp_4"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:visibility="invisible"
+            app:drawableTopCompat="@drawable/ic_search" />
+
+
+    </LinearLayout>
+
+</LinearLayout>

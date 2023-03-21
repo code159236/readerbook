@@ -1,0 +1,41 @@
+package com.v2reading.reader.ui.book.audio
+
+import android.view.View
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Card
+import androidx.compose.material.Slider
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import com.v2reading.reader.model.AudioPlay
+import com.v2reading.reader.service.AudioPlayService
+
+
+@Composable
+fun TimerDialog(state: MutableState<Boolean>, parent: View) {
+    val intOffset = IntArray(2)
+    parent.getLocationInWindow(intOffset)
+    if (state.value) {
+        val timeMinute = remember {
+            mutableStateOf(AudioPlayService.timeMinute)
+        }
+        Dialog(onDismissRequest = { state.value = false }) {
+            Card(Modifier.fillMaxWidth()) {
+                Slider(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    value = timeMinute.value.toFloat(),
+                    onValueChange = {
+                        timeMinute.value = it.toInt()
+                        AudioPlay.setTimer(it.toInt())
+                    },
+                    valueRange = 0f..180f,
+                )
+            }
+        }
+    }
+}

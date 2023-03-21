@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.v2reading.reader.lib.prefs.PreferenceCategory
+        android:title="您可以选择观看一段广告来免费捐赠我们"
+        app:allowDividerAbove="false"
+        app:allowDividerBelow="false"
+        app:iconSpaceReserved="false"
+        app:layout="@layout/view_preference_category">
+
+        <com.v2reading.reader.lib.prefs.Preference
+            android:key="banner"
+            android:title="横幅广告"
+            app:iconSpaceReserved="false" />
+       <com.v2reading.reader.lib.prefs.Preference
+            android:key="banner"
+            android:title="插页式广告"
+            app:iconSpaceReserved="false" />
+       <com.v2reading.reader.lib.prefs.Preference
+            android:key="banner"
+            android:title="视频广告"
+            app:iconSpaceReserved="false" />
+       <com.v2reading.reader.lib.prefs.Preference
+            android:key="banner"
+            android:title="原生广告"
+            app:iconSpaceReserved="false" />
+
+    </com.v2reading.reader.lib.prefs.PreferenceCategory>
+
+</androidx.preference.PreferenceScreen>

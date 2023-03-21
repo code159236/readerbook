@@ -1,0 +1,37 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="tts_name">全网小说阅读器内置语音引擎</string>
+
+    <string name="tts_sample_default" translatable="false">这是语音合成示例。This is an example of speech synthesis.</string>
+    <string name="tts_sample_en" translatable="false">This is an example of speech synthesis.</string>
+    <string name="tts_sample_zh" translatable="false">这是语音合成示例。</string>
+    <string name="tts_sample_ru" translatable="false">Это пример синтеза речи.</string>
+    <string name="tts_sample_hi" translatable="false">यह बात सिंटेस का एक उदाहरण है.</string>
+    <string name="tts_sample_tr" translatable="false">Bu konuşma sintezi örneğindir.</string>
+    <string name="tts_sample_de" translatable="false">Dies ist ein Beispiel für die Sprachsynthese.</string>
+    <string name="tts_sample_it" translatable="false">Questo è un esempio di sintesi vocale.</string>
+    <string name="tts_sample_ja" translatable="false">これは音声合成の例である。</string>
+    <string name="tts_sample_fr" translatable="false" tools:ignore="Typos">Voici un exemple de synthèse vocale.</string>
+    <string name="tts_sample_nl" translatable="false">Dit is een voorbeeld van spraaksynthese.</string>
+    <string name="tts_sample_pt" translatable="false">Este é um exemplo de síntese Da fala.</string>
+    <string name="tts_sample_es" translatable="false">Este es un ejemplo de síntesis de voz.</string>
+    <string name="tts_sample_ko" translatable="false">이것 은 음성 합성 예시 이다.</string>
+    <string name="tts_sample_ar" translatable="false">هذا هو مثال على تركيب الكلام</string>
+
+    <string name="set_tts">设置TTS</string>
+    <string name="kill_battery">电池优化</string>
+    <string name="update_dic">更新词典</string>
+    <string name="use_custom_language">自定义</string>
+    <string name="tts_voice_style">讲话风格(无效值将将忽略)</string>
+    <string name="tts_voice_style_degree">风格强度与合成音量</string>
+    <string name="test">测试</string>
+
+
+    <string name="check_update">检查更新</string>
+    <string name="battery_optimizations">电池优化</string>
+    <string name="audio_format">音频流格式</string>
+    <string name="use_dict">使用词典</string>
+    <string name="split_sentence">使用分句</string>
+    <string name="use_preview">预览语音</string>
+
+
+</resources>
