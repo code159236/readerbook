@@ -285,7 +285,7 @@ dependencies {
     //noinspection GradleDependency
     implementation('cn.hutool:hutool-crypto:5.8.1')
 
-    implementation 'androidx.browser:browser:1.4.0'
+    implementation 'androidx.browser:browser:1.5.0'
 
     implementation(project(path: ':updateapputils'))
     implementation(project(path: ':tts'))
